@@ -174,7 +174,7 @@ tsne_results <- Rtsne(cell_proportions, perplexity=5, check_duplicates = FALSE,v
 plot(tsne_results$Y, col = "black", bg= challenge_groups, pch = 21, cex = 1.5,xlab = "t-SNE 1",
      ylab = "t-SNE 2",main = "Complete challenge group: PrevTB,LTBI, RecTB $ Sterilizing Immunity") # Second plot: Color the plot by the real species type (bg= IR_species)
 text(tsne_results$Y, labels=cdf$Group)
-
+#===============================================================================================
 
 
 
