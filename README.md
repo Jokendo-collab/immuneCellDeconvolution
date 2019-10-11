@@ -4,7 +4,11 @@
 
 # The pipeline does the following
 ### Quality control
+This is used to assess the quality of the reads from the sequencing facility
 ### Treaming and alignment of the reads to the reference genome
+To remove the adapter sequences and also do the quality control on the trimmed reads
 ### Read summarization using subreads
+Quantify the number of genes mapped to the reference genome 
 ### Immune cell fraction estimation using CIBERSORT pipeline
+Estimation of the Immune cell fractions present from the RNAseq data. It uses unsupervised machine learning approach to estimate the immune cells from our bulk sample
 
