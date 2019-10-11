@@ -1,5 +1,6 @@
 # Introduction
-Integration of heterogeneous and voluminous data from proteomics, transcriptomics, Immunological and clinical research constitutes not only a fundamental problem but a real hurdle in the extraction of valuable information from these omics data sets. The exponential increase of novel omics technologies such as LC-MS/MS and the generation of high-resolution data from large consortia projects generates heterogenous and big data sets. These big data promote research but at the same time, new methodologies are lacking in sophisticated tools to analyse these complex data sets. Here we present horizontal data integration approach.
+The cell type composition of many biological tissues varies widely across samples. Such sample heterogeneity hampers efforts to probe the role of each cell type in the tissue. The use of in silico approaches to complement the flow cytometer is of great importance as it will help in "picking" the immune cells at the transcription level. The RNAset deconvolution provides more power in making a conclusion about a give immune cell population in a specific tissue microenvironment.
+microenvironment.
 ## The workflow shows the summary of the mixture matrix generation from the RNA fastq files
 ![w2](https://user-images.githubusercontent.com/26459707/66654239-14a31080-ec3a-11e9-9e6a-83b648c7b6fd.png)
 # The pipeline does the following:
