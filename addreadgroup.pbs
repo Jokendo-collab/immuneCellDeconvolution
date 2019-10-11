@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#PBS -d /stornext/snfs2/1000GENOMES/DATA2/CAfGEN
+#PBS -o /stornext/snfs2/1000GENOMES/DATA2/CAfGEN/Log
+#PBS -q analysis
+#PBS -A proj-fy0007
+#PBS -V
+#PBS -j oe
+#PBS -N addreadgroup_trim_m20
+#PBS -l nodes=1:ppn=1,mem=8G
+#PBS -t 1-95
+
+increment=1
+istart=$[(PBS_ARRAYID-1)*increment+1]
+iend=$[PBS_ARRAYID*increment]
+
+list=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bam2_m20/bam.list
+java=/hgsc_software/java/latest/bin/java
+picard=/hgsc_software/picard/picard-tools-1.93/AddOrReplaceReadGroups.jar
+bamdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bamsort_m20
+outdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bamreadgrp_m20
+mkdir -p $outdir
+
+for line in $(awk 'NR>='$istart' && NR<='$iend'' $list); do
+    basename=$(echo $line | cut -d\. -f1)
+    bam=${bamdir}/${basename}.sorted.bam
+    out=${outdir}/${basename}.so.rg.bam
+
+    command="$java -Xmx6g -jar $picard I=$bam O=$out PL=Illumina SM=$basename PU=sample LB=CAfGEN"
+    echo $command
+    $java -Xmx6g -jar $picard I=$bam O=$out PL=Illumina SM=$basename PU=sample LB=CAfGEN
+done
+
+echo "ALL DONE!"

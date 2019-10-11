@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#PBS -d /stornext/snfs2/1000GENOMES/DATA2/CAfGEN/RNAseq_fastq_batch2
+#PBS -o /stornext/snfs2/1000GENOMES/DATA2/CAfGEN/Log
+#PBS -q analysis
+#PBS -A proj-fy0007
+#PBS -V
+#PBS -j oe
+#PBS -N cut_batch2
+#PBS -l nodes=1:ppn=4,mem=12G
+#PBS -t 1-95
+
+increment=1
+istart=$[(PBS_ARRAYID-1)*increment+1]
+iend=$[PBS_ARRAYID*increment]
+
+list=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/RNAseq_fastq_batch2/fastq.list
+cutadapt=/users/mlotshwa/.local/bin/cutadapt
+fastqdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/RNAseq_fastq_batch2
+trimdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trim_fastq_b2_m20
+mkdir -p $trimdir
+
+for line in $(awk 'NR>='$istart' && NR<='$iend'' $list); do
+    sampleid=$(echo $line | cut -d\_ -f1-3)
+    fastq1=${fastqdir}/${sampleid}_R1_001.fastq.gz
+    fastq2=${fastqdir}/${sampleid}_R2_001.fastq.gz
+    trimmed1=${trimdir}/${sampleid}_R1_001.trim.fastq.gz
+    trimmed2=${trimdir}/${sampleid}_R2_001.trim.fastq.gz
+
+    command="$cutadapt -q 30,30 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -m 20 -o $trimmed1 -p $trimmed2 $fastq1 $fastq2"
+    echo $command
+    $cutadapt -q 30,30 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -m 20 -o $trimmed1 -p $trimmed2 $fastq1 $fastq2
+
+
+done
+
+echo "ALL DONE!"

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#PBS -d /stornext/snfs2/1000GENOMES/DATA2/CAfGEN
+#PBS -o /stornext/snfs2/1000GENOMES/DATA2/CAfGEN/Log
+#PBS -q analysis
+#PBS -A proj-fy0007
+#PBS -V
+#PBS -j oe
+#PBS -N markdups_trim_m20
+#PBS -l nodes=1:ppn=1,mem=8G
+#PBS -t 1-95
+
+increment=1
+istart=$[(PBS_ARRAYID-1)*increment+1]
+iend=$[PBS_ARRAYID*increment]
+
+list=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bam2_m20/bam.list
+java=/hgsc_software/java/latest/bin/java
+picard=/hgsc_software/picard/picard-tools-1.93/MarkDuplicates.jar
+bamdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bamreadgrp_m20
+outdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bamdup_m20
+mkdir -p $outdir
+
+for line in $(awk 'NR>='$istart' && NR<='$iend'' $list); do
+    basename=$(echo $line | cut -d\. -f1)
+    bam=${bamdir}/${basename}.so.rg.bam
+    out=${outdir}/${basename}.so.rg.mk.bam
+
+    command="$java -jar -Xmx6g -jar $picard  I=$bam O=$out METRICS_FILE=$outdir/$basename.PCR_Duplicates_metrics.txt ASSUME_SORTED=true VALIDATION_STRINGENCY=LENIENT MAX_RECORDS_IN_RAM=2500000 CREATE_INDEX=true VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 CREATE_MD5_FILE=false"
+    echo $command
+    $java -jar -Xmx6g -jar $picard  I=$bam O=$out METRICS_FILE=$outdir/$basename.PCR_Duplicates_metrics.txt ASSUME_SORTED=true VALIDATION_STRINGENCY=LENIENT MAX_RECORDS_IN_RAM=250\
+0000 CREATE_INDEX=true VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 CREATE_MD5_FILE=false
+
+done
+
+echo "ALL DONE!"

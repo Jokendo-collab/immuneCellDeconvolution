@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#PBS -d /stornext/snfs2/1000GENOMES/DATA2/CAfGEN/
+#PBS -o /stornext/snfs2/1000GENOMES/DATA2/CAfGEN/Log
+#PBS -q analysis
+#PBS -A proj-fy0007
+#PBS -V
+#PBS -j oe
+#PBS -N hisat2
+#PBS -l nodes=1:ppn=8,mem=16G
+#PBS -t 2-95
+
+increment=1
+istart=$[(PBS_ARRAYID-1)*increment+1]
+iend=$[PBS_ARRAYID*increment]
+
+hisat2=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/hisat2-2.1.0/hisat2
+list=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trim_fastq_b2/fastq1.list
+index=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/hisat2_genomes/hg19/genome
+fastqdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trim_fastq_b2_m20
+outdir=/stornext/snfs2/1000GENOMES/DATA2/CAfGEN/trimmed_bam2_m20
+mkdir -p $outdir
+
+for line in $(awk 'NR>='$istart' && NR<='$iend'' $list); do
+    basename=$(echo $line | cut -d\_ -f1)
+    sampleid=$(echo $line | cut -d\_ -f1-3)
+    fastq1=${fastqdir}/${sampleid}_R1_001.trim.fastq.gz
+    fastq2=${fastqdir}/${sampleid}_R2_001.trim.fastq.gz
+    id1=$(basename $fastq1 | cut -d\_ -f1)
+    ofile1=${outdir}/$id1.bam
+
+    command1="$hisat2 -q --phred33 --novel-splicesite-outfile $outdir/splice-sites.txt --dta -t -x $index -1 $fastq1 -2 $fastq2 -S $outdir/$id1.sam"
+    command2="samtools view -bS $outdir/$id1.sam > $ofile1"
+    echo $command1
+    $hisat2 -q --phred33 --novel-splicesite-outfile $outdir/splice-sites.txt --dta -t -x $index -1 $fastq1 -2 $fastq2 -S $outdir/$id1.sam
+    echo $command2
+    samtools view -bS $outdir/$id1.sam > $ofile1
+
+done
+
+echo "ALL DONE!"
