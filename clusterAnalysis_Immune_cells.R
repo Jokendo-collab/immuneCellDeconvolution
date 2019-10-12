@@ -176,12 +176,11 @@ plot(tsne_results$Y, col = "black", bg= challenge_groups, pch = 21, cex = 1.5,xl
 text(tsne_results$Y, labels=cdf$Group)
 #===============================================================================================
 
+#Plotting the immune cell propoption differences
 
-
-
-
-
-
+ggplot(cdf, aes(Group, Macrophages.M1)) +
+  geom_boxplot(colour = c("blue","black","green","red","grey50")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme()
 
 
 
