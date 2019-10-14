@@ -178,9 +178,11 @@ text(tsne_results$Y, labels=cdf$Group)
 
 #Plotting the immune cell propoption differences
 
-ggplot(cdf, aes(Group, Macrophages.M1)) +
-  geom_boxplot(colour = c("blue","black","green","red","grey50")) +
-  geom_jitter() +  geom_point(aes(colour=Group)) + theme()
+ST_df <- read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/Saline_challenge.csv",header = T,sep = ',')
+
+ggplot(ST_df, aes(Challenge_group, Macrophages.M2)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme()
 
 
 
