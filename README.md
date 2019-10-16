@@ -1,5 +1,5 @@
 # Introduction
-**The cell type composition of many biological tissues varies widely across samples. Such sample heterogeneity hampers efforts to probe the role of each cell type in the tissue. The use of in silico approaches to complement the flow cytometer is of great importance as it will help in "picking" the immune cells at the transcription level. The RNAset deconvolution provides more power in making a conclusion about a give immune cell population in a specific tissue microenvironment.**
+**The cell type composition of many biological tissues varies widely across samples. Such sample heterogeneity hampers efforts to probe the role of each cell type in the tissue. The use of in silico approaches to complement the flow cytometer is of great importance as it will help in `"picking"` the immune cells at the transcription level. The RNAset deconvolution provides more power in making a conclusion about a give immune cell population in a specific tissue microenvironment.**
 ## The workflow shows the summary of the mixture matrix generation from the RNA fastq files
 ![w2](https://user-images.githubusercontent.com/26459707/66849989-35d86980-ef78-11e9-9971-fac9fdd9e1a9.png)
 # The pipeline does the following
