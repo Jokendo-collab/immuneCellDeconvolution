@@ -3,7 +3,7 @@
 ## The workflow shows the summary of the mixture matrix generation from the RNA fastq files
 ![w2](https://user-images.githubusercontent.com/26459707/66849989-35d86980-ef78-11e9-9971-fac9fdd9e1a9.png)
 # The pipeline does the following
-**The workflow processes raw data from FastQ inputs (FastQC, Trim Galore!), aligns the reads using STAR sligner, generates gene counts with the featureCounts tooland performs extensive quality-control on the results (RSeQC, dupRadar, Preseq, edgeR, MultiQC).**
+**The workflow processes raw data from FastQ inputs (`FastQC`, `Trim Galore!`), aligns the reads using STAR sligner, generates gene counts with the featureCounts tooland performs extensive quality-control on the results (`RSeQC`, `dupRadar`, `Preseq`, `edgeR`, `MultiQC`).**
 ### Quality control
 **This is used to assess the quality of the reads from the sequencing facility**
 ### Treaming and alignment of the reads to the reference genome
