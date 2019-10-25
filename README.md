@@ -18,11 +18,10 @@ Estimation of the Immune cell fractions present from the RNAseq data. It uses un
 * Gene Ontology analysis
 * Gene Set Enrichment Analysis
 * Pathway analysis
-####=================================
 # Project Team
-####=================================
-* Mr. Javan Okendo: PhD student
-* Jonathan Blackburn: Supervisor
-* Nicola Mulder: Bioinformatics mentor
-* Clemens Hermann: Mentor
+
+* **Mr. Javan Okendo: PhD student**
+* **Jonathan Blackburn: Supervisor**
+* **Nicola Mulder: Bioinformatics mentor**
+* **Clemens Hermann: Mentor**
 
