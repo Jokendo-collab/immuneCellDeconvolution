@@ -37,14 +37,14 @@ library(KEGGREST)
 library(gage)
 library(sqldf)
 ```
+# Load the count matrix dataframe
+`Countdata = read.delim("fullChallengGroups_gene_counts.txt",header = T,row.names = 1)`
+
+# check if the row names in metadata matches with the column names in the count matrix data
+`ncol(Countdata) == nrow(metadata)`
+
+# Load the metadata file
 ```
-#Load the count matrix dataframe
-Countdata = read.delim("fullChallengGroups_gene_counts.txt",header = T,row.names = 1)
-
-#check if the row names in metadata matches with the column names in the count matrix data
-ncol(Countdata) == nrow(metadata)
-
-#Load the metadata file
 metadata = read.csv("metadata.txt",header = T,sep = '\t')
 
 rownames(metadata) <- colnames(Countdata) #match the rownames in metadata with colnames in the count matrix data
@@ -56,29 +56,32 @@ ddsMat <- DESeqDataSetFromMatrix(countData = Countdata,
                                  design = ~Replicate)
 
 
-
+```
 # Find differential expressed genes
+```
 # Run DESEq2
 ddsMat <- DESeq(ddsMat)
+```
 
-#Get basic statisics about the number of significant genes
+_Get basic statisics about the number of significant genes_
 # Get results from testing with FDR adjust pvalues
-results <- results(ddsMat, pAdjustMethod = "BH", alpha = 0.05)
+`results <- results(ddsMat, pAdjustMethod = "BH", alpha = 0.05)`
 
 # Generate summary of testing. 
-summary(results)
-
+`summary(results)`
 
 # Check directionality of fold change
-mcols(results, use.names = T)
+`mcols(results, use.names = T)`
 
 # - - - - - - - - - - - - - 
 # Gene annotation
 # - - - - - - - - - - - - - 
+```
 library(AnnotationDbi)
 library(org.Hs.eg.db)
-
+```
 # Add gene full name
+```
 results$description <- mapIds(x = org.Hs.eg.db,
                               keys = row.names(results),
                               column = "GENENAME",
@@ -127,17 +130,17 @@ write.table(x = as.data.frame(results_sig),
             quote = F,
             col.names = NA)
 
-
+```
 # - - - - - - - - - - - - - 
 # PCA plot
 # - - - - - - - - - - - - - 
 # Convert all samples to rlog
-ddsMat_rlog <- rlong(ddsMat, blind = FALSE)
+`ddsMat_rlog <- rlong(ddsMat, blind = FALSE)`
 
-ddsMat_rlog <- vst(ddsMat, blind = FALSE)
-
+`ddsMat_rlog <- vst(ddsMat, blind = FALSE)`
 
 # Plot PCA by column variable
+```
 plotPCA(ddsMat_rlog, intgroup = "Replicate", ntop = 500) +
   theme_bw() +
   ggsave('challeng_group_plot.png')
@@ -154,11 +157,12 @@ plotPCA(ddsMat_rlog, intgroup = "Replicate", ntop = 500) +
   scale_y_continuous(limits = c(-25, 25)) + # change limits to fix figure dimensions
   ggtitle(label = "Principal Component Analysis (PCA)", 
           subtitle = "Top 500 most variable genes") 
-
+```
 # - - - - - - - - - - - - - 
 # Heatmap plot
 # - - - - - - - - - - - - - 
 # Load libraries
+```
 library(pheatmap) 
 library(RColorBrewer) 
 
@@ -180,9 +184,10 @@ ann_colors = list(
   Group = c("PTB" = "blue", "RTB" = "black","LTBI" = "green","STI" = "red"),
   Replicate = c(Baseline = "red", PPD = "green", BCG= "yellow", Saline = "blue")
 )
-
-# Make Heatmap with pheatmap function.
-## See more in documentation for customization
+```
+## Make Heatmap with pheatmap function
+_See more in documentation for customization_
+```
 pheatmap(mat = mat, 
          color = colorRampPalette(brewer.pal(9, "YlOrBr"))(25), 
          scale = "row", # Scale genes to Z-score (how many standard deviations)
@@ -191,10 +196,11 @@ pheatmap(mat = mat,
          fontsize = 6.5, # Make fonts smaller
          cellwidth = 5, # Make the cells wider
          show_colnames = T)
-
+```
 # - - - - - - - - - - - - - 
 # Volcano plot
 # - - - - - - - - - - - - - 
+```
 # Load libraries
 library(ggplot2)
 library(RColorBrewer)
@@ -231,11 +237,11 @@ vol +
   geom_hline(yintercept = 1.3, colour = "darkgrey") + # Add p-adj value cutoff line
   scale_y_continuous(trans = "log1p") # Scale yaxis due to large p-values
 
-
+```
 # - - - - - - - - - - - - - 
 # MA plot
 # - - - - - - - - - - - - - 
-plotMA(results, ylim = c(-5, 5))
+`plotMA(results, ylim = c(-5, 5))`
 
 #plot dispersion
 plotDispEsts(ddsMat)
