@@ -37,13 +37,13 @@ library(KEGGREST)
 library(gage)
 library(sqldf)
 ```
-# Load the count matrix dataframe
+### Load the count matrix dataframe
 `Countdata = read.delim("fullChallengGroups_gene_counts.txt",header = T,row.names = 1)`
 
-# check if the row names in metadata matches with the column names in the count matrix data
+### check if the row names in metadata matches with the column names in the count matrix data
 `ncol(Countdata) == nrow(metadata)`
 
-# Load the metadata file
+### Load the metadata file
 ```
 metadata = read.csv("metadata.txt",header = T,sep = '\t')
 
@@ -57,30 +57,30 @@ ddsMat <- DESeqDataSetFromMatrix(countData = Countdata,
 
 
 ```
-# Find differential expressed genes
+### Find differential expressed genes
 ```
 # Run DESEq2
 ddsMat <- DESeq(ddsMat)
 ```
 
 _Get basic statisics about the number of significant genes_
-# Get results from testing with FDR adjust pvalues
+### Get results from testing with FDR adjust pvalues
 `results <- results(ddsMat, pAdjustMethod = "BH", alpha = 0.05)`
 
-# Generate summary of testing. 
+### Generate summary of testing. 
 `summary(results)`
 
-# Check directionality of fold change
+### Check directionality of fold change
 `mcols(results, use.names = T)`
 
-# - - - - - - - - - - - - - 
-# Gene annotation
-# - - - - - - - - - - - - - 
+### - - - - - - - - - - - - - 
+### Gene annotation
+### - - - - - - - - - - - - - 
 ```
 library(AnnotationDbi)
 library(org.Hs.eg.db)
 ```
-# Add gene full name
+## Add gene full name
 ```
 results$description <- mapIds(x = org.Hs.eg.db,
                               keys = row.names(results),
@@ -131,15 +131,13 @@ write.table(x = as.data.frame(results_sig),
             col.names = NA)
 
 ```
-# - - - - - - - - - - - - - 
-# PCA plot
-# - - - - - - - - - - - - - 
-# Convert all samples to rlog
+### - - - - - - - - - - - - - 
+### PCA plot
+### - - - - - - - - - - - - - 
+### Convert all samples to rlog
 `ddsMat_rlog <- rlong(ddsMat, blind = FALSE)`
-
 `ddsMat_rlog <- vst(ddsMat, blind = FALSE)`
-
-# Plot PCA by column variable
+### Plot PCA by column variable
 ```
 plotPCA(ddsMat_rlog, intgroup = "Replicate", ntop = 500) +
   theme_bw() +
@@ -148,8 +146,7 @@ plotPCA(ddsMat_rlog, intgroup = "Replicate", ntop = 500) +
 plotPCA(ddsMat_rlog, intgroup = "Group", ntop = 500) +
   theme_bw() +
   ggsave('group_plot.png')
-
-
+  
 # Plot PCA by column variable
 plotPCA(ddsMat_rlog, intgroup = "Replicate", ntop = 500) +
   theme_bw() + # remove default ggplot2 theme
@@ -158,10 +155,10 @@ plotPCA(ddsMat_rlog, intgroup = "Replicate", ntop = 500) +
   ggtitle(label = "Principal Component Analysis (PCA)", 
           subtitle = "Top 500 most variable genes") 
 ```
-# - - - - - - - - - - - - - 
-# Heatmap plot
-# - - - - - - - - - - - - - 
-# Load libraries
+### - - - - - - - - - - - - - 
+### Heatmap plot
+### - - - - - - - - - - - - - 
+### Load libraries
 ```
 library(pheatmap) 
 library(RColorBrewer) 
@@ -185,7 +182,7 @@ ann_colors = list(
   Replicate = c(Baseline = "red", PPD = "green", BCG= "yellow", Saline = "blue")
 )
 ```
-## Make Heatmap with pheatmap function
+### Make Heatmap with pheatmap function
 _See more in documentation for customization_
 ```
 pheatmap(mat = mat, 
@@ -197,9 +194,9 @@ pheatmap(mat = mat,
          cellwidth = 5, # Make the cells wider
          show_colnames = T)
 ```
-# - - - - - - - - - - - - - 
-# Volcano plot
-# - - - - - - - - - - - - - 
+### - - - - - - - - - - - - - 
+### Volcano plot
+### - - - - - - - - - - - - - 
 ```
 # Load libraries
 library(ggplot2)
@@ -238,32 +235,30 @@ vol +
   scale_y_continuous(trans = "log1p") # Scale yaxis due to large p-values
 
 ```
-# - - - - - - - - - - - - - 
-# MA plot
-# - - - - - - - - - - - - - 
+### - - - - - - - - - - - - - 
+### MA plot
+### - - - - - - - - - - - - - 
 `plotMA(results, ylim = c(-5, 5))`
 
 #plot dispersion
 plotDispEsts(ddsMat)
 
-# - - - - - - - - - - - - - 
-# Single gene plot
-# - - - - - - - - - - - - - 
-# Convert all samples to rlog
+### - - - - - - - - - - - - - 
+### Single gene plot
+### - - - - - - - - - - - - - 
+### Convert all samples to rlog
 ddsMat_rlog <- rlog(ddsMat, blind = FALSE)
 
-# Get gene with highest expression
+### Get gene with highest expression
 top_gene <- rownames(results)[which.min(results$log2FoldChange)]
 
-# Plot single gene
+### Plot single gene
 plotCounts(ddsMat, gene = top_gene, intgroup = "Group",col=rainbow(4))
-
-
-# - - - - - - - - - - - - - - -
+### - - - - - - - - - - - - - - -
 # Pathway analysis of DE genes
-# - - - - - - - - - - - - - - -
+### - - - - - - - - - - - - - - -
 
-# Load required libraries
+### Load required libraries
 library(clusterProfiler)
 library(ReactomePA)
 library(KEGGREST)
