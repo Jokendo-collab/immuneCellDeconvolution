@@ -13,3 +13,27 @@ Quantify the number of genes mapped to the reference genome
 ### Immune cell fraction estimation using `CIBERSORT` pipeline
 Estimation of the Immune cell fractions present from the RNAseq data. It uses unsupervised machine learning approach to estimate the immune cells from our bulk sample**. **Scirpts for `CIBERSORT.R` can be accessed from (https://cibersort.stanford.edu/) upon an request from `CIBERSORT` team.
 
+# Differential Analysis of the count matrix
+```
+#set the working directory
+setwd("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix")
+list.files()
+# Load the following Bioconductor libraries and if you don't have them installed then you can do so from the Bioconductor 
+library(DESeq2)
+library(ggplot2)
+library(biomaRt)
+library(org.Hs.eg.db)
+library(pheatmap)
+library(genefilter)
+library(RColorBrewer)
+library(GO.db)
+library(topGO)
+library(dplyr)
+library(ggsci)
+library(clusterProfiler)
+library(ReactomePA)
+library(DOSE)
+library(KEGGREST)
+library(gage)
+library(sqldf)
+```
