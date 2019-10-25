@@ -11,7 +11,7 @@ To remove the adapter sequences and also do the quality control on the trimmed r
 #### **Read summarization using subreads**
 Quantify the number of genes mapped to the reference genome
 #### **Immune cell fraction estimation using `CIBERSORT` pipeline**
-Estimation of the Immune cell fractions present from the RNAseq data. It uses unsupervised machine learning approach to estimate the immune cells from our bulk sample**. **Scirpts for `CIBERSORT.R` can be accessed from (https://cibersort.stanford.edu/) upon an request from `CIBERSORT` team.
+Estimation of the Immune cell fractions present from the _RNAseq data_. It uses unsupervised machine learning approach to estimate the immune cells from our bulk sample. Scirpts for `CIBERSORT.R` can be accessed from (https://cibersort.stanford.edu/) upon an request from `CIBERSORT` team.
 
 ### Futute analysis plans
 * Differential analysis
