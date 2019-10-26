@@ -21,7 +21,7 @@ Estimation of the Immune cell fractions present from the _RNAseq data_. It uses 
 ### **Project Team**
 * **Mr. Javan Okendo: PhD student**
 * **Prof. Jonathan Blackburn: Supervisor** 
-
+![Jonathan-Blackburn](https://user-images.githubusercontent.com/26459707/67622232-a9039a80-f818-11e9-99e3-1e10dfc3eaf6.jpg)
 * **Prof. Nicola Mulder: Bioinformatics mentor**
 * **Dr. Clemens Hermann: Mentor**
 
