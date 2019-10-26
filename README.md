@@ -20,9 +20,7 @@ Estimation of the Immune cell fractions present from the _RNAseq data_. It uses 
 * Pathway analysis
 ### **Project Team**
 * **Mr. Javan Okendo: PhD student**
-* **Prof. Jonathan Blackburn: Supervisor** 
-![Jonathan-Blackburn](https://user-images.githubusercontent.com/26459707/67622232-a9039a80-f818-11e9-99e3-1e10dfc3eaf6.jpg)
-* **Prof. Nicola Mulder: Bioinformatics mentor**
-
+![Jonathan-Blackburn](https://user-images.githubusercontent.com/26459707/67622232-a9039a80-f818-11e9-99e3-1e10dfc3eaf6.jpg) * **Prof. Jonathan Blackburn: Supervisor** 
+![mulder](https://user-images.githubusercontent.com/26459707/67622291-4ced4600-f819-11e9-963d-210158cc6db6.jpg) * **Prof. Nicola Mulder: Bioinformatics mentor**
 * **Dr. Clemens Hermann: Mentor**
 
