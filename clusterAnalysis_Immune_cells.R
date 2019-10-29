@@ -176,13 +176,129 @@ plot(tsne_results$Y, col = "black", bg= challenge_groups, pch = 21, cex = 1.5,xl
 text(tsne_results$Y, labels=cdf$Group)
 #===============================================================================================
 
-#Plotting the immune cell propoption differences
+#Plotting the immune cell propoption differences from the complete dataset
 
-ST_df <- read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/Saline_challenge.csv",header = T,sep = ',')
+library(ggplot2)
 
-ggplot(ST_df, aes(Challenge_group, Macrophages.M2)) +
+cdf=read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/cibersort_completeteChallengeGroupDecon.csv",header = T, sep = ',')
+summary(cdf)
+
+ggplot(cdf, aes(Group, Macrophages.M1)) +
+  geom_boxplot(colour = c("blue","black","green","orange","pink")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme()
+
+#Plotting the specific challenge groups: Baseline
+baseline <- read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/Baseline_group.csv",header = T,sep = ',')
+
+ggplot(baseline, aes(sample_group, Neutrophils)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=sample_group)) + theme_classic()
+
+ggplot(baseline, aes(sample_group, Macrophages.M0)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=sample_group)) + theme_classic()
+
+ggplot(baseline, aes(sample_group, Macrophages.M2)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=sample_group)) + theme_classic()
+
+ggplot(baseline, aes(sample_group, T.cells.CD4.memory.resting)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=sample_group)) + theme_classic()
+
+ggplot(baseline, aes(sample_group, Eosinophils)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=sample_group)) + theme_classic()
+
+ggplot(baseline, aes(sample_group, Monocytes)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=sample_group)) + theme_classic()
+
+# BCG challenge group
+bcg <- read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/BCG_challenge.csv",header = T, sep = ',')
+
+par(mfrow=c(2,2))
+ggplot(bcg, aes(Group, Monocytes)) +
   geom_boxplot(colour = c("blue","black","green","orange")) +
-  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme()
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(bcg, aes(Group, Macrophages.M0)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(bcg, aes(Group, Macrophages.M1)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(bcg, aes(Group, Macrophages.M2)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(bcg, aes(Group, T.cells.CD4.memory.resting)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(bcg, aes(Group, Eosinophils)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+#PPD challenge group
+
+ppd <- read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/PPD_challenge.csv",header = T, sep = ',')
+
+ggplot(ppd, aes(Group, Neutrophils)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(ppd, aes(Group, Macrophages.M0)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(ppd, aes(Group, Macrophages.M1)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(ppd, aes(Group, Macrophages.M2)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(ppd, aes(Group, T.cells.CD4.memory.resting)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+ggplot(ppd, aes(Group, Eosinophils)) +
+  geom_boxplot(colour = c("blue","black","green","red")) +
+  geom_jitter() +  geom_point(aes(colour=Group)) + theme_classic()
+
+
+#Saline challenge group
+
+saline <- read.csv("C:/Users/Javan_Okendo/Desktop/cybersort/nexflow_count_matrix/Saline_challenge.csv",header = T, sep = ',')
+
+ggplot(saline, aes(Challenge_group, Neutrophils)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme_classic()
+
+ggplot(saline, aes(Challenge_group, Macrophages.M0)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme_classic()
+
+ggplot(saline, aes(Challenge_group, T.cells.CD4.memory.resting)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme_classic()
+
+ggplot(saline, aes(Challenge_group, Eosinophils)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme_classic()
+
+ggplot(saline, aes(Challenge_group, Macrophages.M2)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme_classic()
+
+ggplot(saline, aes(Challenge_group, Monocytes)) +
+  geom_boxplot(colour = c("blue","black","green","orange")) +
+  geom_jitter() +  geom_point(aes(colour=Challenge_group)) + theme_classic()
+
 
 
 
